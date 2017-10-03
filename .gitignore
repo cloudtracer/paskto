@@ -1,2 +1,3 @@
 paskto_db.json
-./cc_files/*
+cc_files/*
+!cc_files/.gitkeep 
