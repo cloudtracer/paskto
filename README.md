@@ -21,6 +21,8 @@
   Scan domain, only save URLs.         $ node paskto.js -s "www.msn.com" -o /tmp/test-results.csv                                      
   Scan dir with indexes.               $ node paskto.js -d "/tmp/CC-MAIN-2017-39-index/" -o /tmp/test-results.csv -a /tmp/all-urls.csv
 
-## Follow: @ThreatPinch for news and updates
+## News & updates
+
+Follow [@ThreatPinch](https://twitter.com/ThreatPinch) on twitter.
 
 Make sure to check out [ThreatPinch Lookup](https://github.com/cloudtracer/ThreatPinchLookup) as well, our OSINT and Threat Intel Chrome / Firefox browser extension.
