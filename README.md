@@ -21,7 +21,7 @@
   Scan domain, only save URLs.         $ node paskto.js -s "www.msn.com" -o /tmp/test-results.csv                                      
   Scan dir with indexes.               $ node paskto.js -d "/tmp/CC-MAIN-2017-39-index/" -o /tmp/test-results.csv -a /tmp/all-urls.csv
 
-## News & updates
+## News & Updates
 
 Follow [@ThreatPinch](https://twitter.com/ThreatPinch) on twitter.
 
