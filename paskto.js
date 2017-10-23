@@ -6,6 +6,7 @@ const cli_usage = require('command-line-usage');
 const cli_args = require('command-line-args');
 
 var common_crawl = require('./common_crawl.js');
+var internet_archive = require('./internet_archive.js');
 
 var nikto_db_vars_url = "https://raw.githubusercontent.com/sullo/nikto/master/program/databases/db_variables";
 var nikto_db_tests_url = "https://raw.githubusercontent.com/sullo/nikto/master/program/databases/db_tests";
@@ -25,6 +26,7 @@ var args;
 var cwd = process.cwd();
 var db = {};
 var extras = require("./extras.json");
+var digest_sigs = require("./digest_sigs.json");
 
 var flag_use_extras = true;
 var flag_use_nikto = true;
@@ -33,6 +35,8 @@ var flag_update_nikto_db = false;
 
 var results_write_stream;
 var urls_write_stream;
+var ia_results_write_stream;
+var ia_urls_write_stream;
 
 var option_list = [
   {
@@ -132,6 +136,16 @@ var sections = [
   }
 ];
 
+Promise.each = function(arr, fn) { // take an array and a function
+  // invalid input
+  if(!Array.isArray(arr)) return Promise.reject(new Error("Non array passed to each"));
+  // empty case
+  if(arr.length === 0) return Promise.resolve();
+  return arr.reduce(function(prev, cur) {
+    return prev.then(() => fn(cur))
+  }, Promise.resolve());
+}
+
 function Main(){
   args = cli_args(option_list, { partial: true });
   const usage = cli_usage(sections);
@@ -170,6 +184,7 @@ function Main(){
       fs.unlinkSync(args['save-all-urls']);
     }
     urls_write_stream = require('fs').createWriteStream(args['save-all-urls'],{ flags:'a' });
+    //ia_urls_write_stream = require('fs').createWriteStream(args['save-all-urls'] + "-IA",{ flags:'a' });
   }
   if(args['output-file']){
     if(fs.existsSync(args['output-file'])){
@@ -177,6 +192,7 @@ function Main(){
       fs.unlinkSync(args['output-file']);
     }
     results_write_stream = require('fs').createWriteStream(args['output-file'],{ flags:'a' });
+    //ia_results_write_stream = require('fs').createWriteStream(args['output-file'] + "-IA",{ flags:'a' });
   }
   if(args['dir-input']){
     if(!args['output-file']){
@@ -203,19 +219,62 @@ function Main(){
   }
   if(args['scan']){
     var promises = [];
+
     return common_crawl.PagesByURL({currentIndex: cc_index, queryString: args['scan']}).then(function(results){
       //console.log(results)
       var json = JSON.parse(results);
       var num_pages = json.pages;
+      var params = [];
       console.log("INFO: Found " + num_pages + " pages of Common Crawl data.");
       for(var i=0; i<num_pages; i++){
-        promises.push(common_crawl.FindByURL({currentIndex: cc_index, queryString: args['scan'], page: i}));
+        params.push({currentIndex: cc_index, queryString: args['scan'], page: i});
       }
-      return Promise.all(promises).then(filepaths => {
-        ProcessFilesSynchonously(filepaths, ReadCompressedFile);
+      return Promise.each(params,function(eachArr){
+        return common_crawl.FindByURL(eachArr);
+      }).then(function(filepaths){
+        console.log(filepaths);
+        ProcessFilesSynchonouslyCC(filepaths, ReadCompressedFileCC)
       });
-    })
+    }).then(function(){
+      return internet_archive.PagesByURL({currentIndex: cc_index, queryString: args['scan']}).then(function(results){
+        //console.log(results)
+        //var json = JSON.parse(results);
+        var num_pages = results.trim();
+        var params = [];
+        console.log("INFO: Found " + num_pages + " pages of Internet Archive data.");
+        for(var i=0; i<num_pages; i++){
+          params.push({currentIndex: cc_index, queryString: args['scan'], page: i});
+          //console.log("Page: " + i);
+        }
+        return Promise.each(params,function(eachArr){
+          return internet_archive.FindByURL(eachArr);
+        }).then(function(filepaths){
+          results_write_stream = require('fs').createWriteStream(args['output-file'],{ flags:'a' });
+          urls_write_stream = require('fs').createWriteStream(args['save-all-urls'],{ flags:'a' });
+          ProcessFilesSynchonouslyIA(filepaths, ReadCompressedFileIA)
+        })
+        //for(var i=0; i<num_pages; i++){
+          //promises.push(internet_archive.FindByURL());
+        //}
+      });
+    });
   }
+}
+
+function PerformIARequestSync(array, fn) {
+    var index = 0;
+    var filepaths = [];
+    function next() {
+        if (index < array.length) {
+            var name = array[index];
+            console.warn("Reading filename: " + name);
+            fn(name).then(next);
+            index++;
+        } else {
+          return filepaths;
+        }
+    }
+    next();
 }
 
 function ReadFullDirectory(dirname, output){
@@ -232,7 +291,8 @@ function ReadFullDirectory(dirname, output){
         filepaths.push(dirname + '/' + filename);
       }
     });
-    ProcessFilesSynchonously(filepaths, ReadCompressedFile)
+    ProcessFilesSynchonouslyCC(filepaths, ReadCompressedFileCC);
+    //ProcessFilesSynchonouslyIA(filepaths, ReadCompressedFileIA)
   });
 }
 
@@ -241,7 +301,7 @@ function WriteToStream(line, stream){
 
 }
 
-function ProcessFilesSynchonously(array, fn) {
+function ProcessFilesSynchonouslyCC(array, fn) {
     var index = 0;
     if(results_write_stream){
       WriteToStream('"' + "TEST_ID" + '", "' + "TEST_NAME" + '", "'  + "TRIGGER_PATH" + '", "' + "URL" + '", "'+ "HOST_NAME" + '", "'+ "DOMAIN" + '", "'+ "PROTOCOL" + '", "'+ "PORT" + '", "'+ "STATUS" + '", "' + "FILENAME" + '", "' + "HASH" + '"', results_write_stream);
@@ -251,7 +311,13 @@ function ProcessFilesSynchonously(array, fn) {
     }
     function next() {
         if (index < array.length) {
-            var name = array[index];
+            var name = "";
+            if(typeof array === "string"){
+              name = array;
+              index = array.length;
+            } else {
+              name = array[index];
+            }
             console.warn("Reading filename: " + name);
             fn(name).then(next);
             index++;
@@ -270,7 +336,42 @@ function ProcessFilesSynchonously(array, fn) {
     next();
 }
 
-function ReadCompressedFile(filename){
+function ProcessFilesSynchonouslyIA(array, fn) {
+    var index = 0;
+    if(results_write_stream){
+      //WriteToStream('"' + "TEST_ID" + '", "' + "TEST_NAME" + '", "'  + "TRIGGER_PATH" + '", "' + "URL" + '", "'+ "HOST_NAME" + '", "'+ "DOMAIN" + '", "'+ "PROTOCOL" + '", "'+ "PORT" + '", "'+ "STATUS" + '", "' + "FILENAME" + '", "' + "HASH" + '"', ia_results_write_stream);
+    }
+    if(urls_write_stream){
+      //WriteToStream('"' + "HTTP_CODE" + '", "' + "HASH" + '", "' + "DATE" + '", "'  + "URL"  + '"', ia_urls_write_stream);
+    }
+    function next() {
+        if (index < array.length) {
+            var name = "";
+            if(typeof array === "string"){
+              name = array;
+              index = array.length;
+            } else {
+              name = array[index];
+            }
+            console.warn("Reading filename: " + name);
+            fn(name).then(next);
+            index++;
+        } else {
+          if(results_write_stream){
+            results_write_stream.end();
+            console.log("INFO: test results file located at - " + args['output-file']);
+          }
+          if(ia_urls_write_stream){
+            urls_write_stream.end();
+            console.log("INFO: save-all-urls file located at - " + args['save-all-urls']);
+          }
+          console.log("INFO: Paskto successfully finished.")
+        }
+    }
+    next();
+}
+
+function ReadCompressedFileCC(filename){
   try{
     return new Promise(function(resolve, reject) {
       if (!fs.existsSync(filename)) {
@@ -300,6 +401,42 @@ function ReadCompressedFile(filename){
             }
           }
 
+        } catch(error){
+          console.error(line);
+          console.error(error);
+        }
+      });
+      line_reader.on('close', function(){
+        console.error("File " + filename + " completed.");
+        console.error("Lines read: " + line_count);
+        resolve();
+      });
+    })
+
+  } catch(error){
+    console.error(filename);
+    console.error(error);
+    resolve(error);
+  }
+}
+
+function ReadCompressedFileIA(filename){
+  try{
+    return new Promise(function(resolve, reject) {
+      if (!fs.existsSync(filename)) {
+          console.log(filename+ ": does not exist.");
+          return false;
+      }
+      var line_reader = readline.createInterface({
+        input: fs.createReadStream(filename).pipe(zlib.createGunzip())
+      });
+      line_reader.on('line', function (line) {
+        try{
+          var scan = line.split(" ");
+          if(scan.length > 5){
+            PerformFastTests(scan[2], scan[4], scan[1], scan[5]);
+          }
+          line_count++
         } catch(error){
           console.error(line);
           console.error(error);
@@ -538,8 +675,11 @@ function PerformFastTests(url, status, filename, hash){
   var match_path = "";
   var nikto_match_path = "";
   if(urls_write_stream){
-    WriteToStream('"' + status + '", "' + hash + '", "'  + url + '"', urls_write_stream);
+    WriteToStream('"' + status + '", "' + hash + '", "' + filename + '", "'  + url + '"', urls_write_stream);
   }
+  //if(ia_urls_write_stream){
+    //WriteToStream('"' + status + '", "' + hash + '", "' + filename + '", "'  + url + '"', ia_urls_write_stream);
+  //}
   if(!results_write_stream) return true;
   for(var i_len=(bits.length-1); i_len > 0; i_len--){
     if(i_len == bits.length){
@@ -574,9 +714,14 @@ function PerformFastTests(url, status, filename, hash){
     }
   }
 
+
+  if(digest_sigs[hash]){
+    WriteToStream('"DIGEST_SIG-' + digest_sigs[hash].name + '", "' + 'EXTRAS-' + digest_sigs[hash].name +"-"+ match_path  + '", "' + match_path + '", "' + url + '", "' + hostname + '", "' + domain + '", "' + domain_bits.protocol + '", "' + domain_bits.port + '", "' + status + '", "' +filename + '", "' + hash + '"', results_write_stream);
+  }
   var tests_length = positive_tests.length;
   if(tests_length){
     for(var i=0, i_len=tests_length; i< i_len; i++){
+      //WriteToStream('"NIKTO-' + positive_tests[i] + '", "' + db[positive_tests[i]].orig[10]  + '", "' + nikto_match_path + '", "' + url + '", "' + hostname + '", "' + domain + '", "' + domain_bits.protocol + '", "' + domain_bits.port + '", "' + status + '", "' +filename + '", "' + hash + '"', results_write_stream);
       WriteToStream('"NIKTO-' + positive_tests[i] + '", "' + db[positive_tests[i]].orig[10]  + '", "' + nikto_match_path + '", "' + url + '", "' + hostname + '", "' + domain + '", "' + domain_bits.protocol + '", "' + domain_bits.port + '", "' + status + '", "' +filename + '", "' + hash + '"', results_write_stream);
 
     }
@@ -586,7 +731,9 @@ function PerformFastTests(url, status, filename, hash){
     tests_length = extra_positive_tests.length;
     if(tests_length){
       for(var i=0, i_len=tests_length; i< i_len; i++){
+        //WriteToStream('"EXTRAS-' + extra_positive_tests[i] + '", "' + 'EXTRAS-' + extra_positive_tests[i]+"-"+ match_path  + '", "' + match_path + '", "' + url + '", "' + hostname + '", "' + domain + '", "' + domain_bits.protocol + '", "' + domain_bits.port + '", "' + status + '", "' +filename + '", "' + hash + '"', results_write_stream);
         WriteToStream('"EXTRAS-' + extra_positive_tests[i] + '", "' + 'EXTRAS-' + extra_positive_tests[i]+"-"+ match_path  + '", "' + match_path + '", "' + url + '", "' + hostname + '", "' + domain + '", "' + domain_bits.protocol + '", "' + domain_bits.port + '", "' + status + '", "' +filename + '", "' + hash + '"', results_write_stream);
+
       }
     }
   }
