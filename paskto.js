@@ -47,6 +47,13 @@ var option_list = [
     description: 'Directory with common crawl index files with .gz extension. Ex: -d "/tmp/cc/"'
   },
   {
+    name: 'ia-dir-input',
+    alias: 'v',
+    type: String,
+    typeLabel: '[underline]{directory}',
+    description: 'Directory with internet archive index files with .gz extension. Ex: -v "/tmp/ia/"'
+  },
+  {
     name: 'output-file',
     alias: 'o',
     type: String,
@@ -177,7 +184,7 @@ function Main(){
   //ReadDirectory('../../../all.com/');
 
   //ReadCompressedFile('../../../common-crawl/cdx-00000.gz')
-  //ReadFullDirectory('/media/brewerm/CommonCrawl/cc');
+  //ReadFullDirectoryCC('/media/brewerm/CommonCrawl/cc');
   if(args['save-all-urls']){
     if(fs.existsSync(args['save-all-urls'])){
       console.error("WARN: " + args['save-all-urls'] + " already exists, overwriting...");
@@ -206,7 +213,22 @@ function Main(){
       return false;
     }
     console.log("Reading directory: " + args['dir-input']);
-    ReadFullDirectory(args['dir-input']);
+    ReadFullDirectoryCC(args['dir-input']);
+  }
+
+  if(args['ia-dir-input']){
+    if(!args['output-file']){
+      console.warn("WARN: Test results will not be saved, output csv file not set, use option -o /path/to/results_file.csv");
+    }
+    if(!args['save-all-urls']){
+      console.warn("WARN: All URLS will not be saved, csv file not set, use option -a /path/to/url_file.csv");
+    }
+    if(!args['save-all-urls'] && !args['output-file']){
+      console.error("ERROR: Either -o or -a must be set to either save results or all urls.");
+      return false;
+    }
+    console.log("Reading directory: " + args['ia-dir-input']);
+    ReadFullDirectoryIA(args['ia-dir-input']);
   }
   if(args['cc-index']){
     cc_index = args['cc-index'];
@@ -277,7 +299,7 @@ function PerformIARequestSync(array, fn) {
     next();
 }
 
-function ReadFullDirectory(dirname, output){
+function ReadFullDirectoryCC(dirname, output){
   //console.error("Reading Directory: " + dirname);
   fs.readdir(dirname, function(err, filenames) {
     if (err) {
@@ -292,6 +314,25 @@ function ReadFullDirectory(dirname, output){
       }
     });
     ProcessFilesSynchonouslyCC(filepaths, ReadCompressedFileCC);
+    //ProcessFilesSynchonouslyIA(filepaths, ReadCompressedFileIA)
+  });
+}
+
+function ReadFullDirectoryIA(dirname, output){
+  //console.error("Reading Directory: " + dirname);
+  fs.readdir(dirname, function(err, filenames) {
+    if (err) {
+      onError(err);
+      return;
+    }
+    var filepaths = [];
+    filenames.forEach(function(filename) {
+      if(filename.indexOf('.gz') !== -1){
+        //console.error("Getting filename: " + dirname + '/' + filename);
+        filepaths.push(dirname + '/' + filename);
+      }
+    });
+    ProcessFilesSynchonouslyIA(filepaths, ReadCompressedFileIA);
     //ProcessFilesSynchonouslyIA(filepaths, ReadCompressedFileIA)
   });
 }
@@ -338,8 +379,8 @@ function ProcessFilesSynchonouslyCC(array, fn) {
 
 function ProcessFilesSynchonouslyIA(array, fn) {
     var index = 0;
-    if(results_write_stream){
-      //WriteToStream('"' + "TEST_ID" + '", "' + "TEST_NAME" + '", "'  + "TRIGGER_PATH" + '", "' + "URL" + '", "'+ "HOST_NAME" + '", "'+ "DOMAIN" + '", "'+ "PROTOCOL" + '", "'+ "PORT" + '", "'+ "STATUS" + '", "' + "FILENAME" + '", "' + "HASH" + '"', ia_results_write_stream);
+    if(results_write_stream && args['ia-dir-input']){
+      WriteToStream('"' + "TEST_ID" + '", "' + "TEST_NAME" + '", "'  + "TRIGGER_PATH" + '", "' + "URL" + '", "'+ "HOST_NAME" + '", "'+ "DOMAIN" + '", "'+ "PROTOCOL" + '", "'+ "PORT" + '", "'+ "STATUS" + '", "' + "FILENAME" + '", "' + "HASH" + '"', results_write_stream);
     }
     if(urls_write_stream){
       //WriteToStream('"' + "HTTP_CODE" + '", "' + "HASH" + '", "' + "DATE" + '", "'  + "URL"  + '"', ia_urls_write_stream);
@@ -376,7 +417,7 @@ function ReadCompressedFileCC(filename){
     return new Promise(function(resolve, reject) {
       if (!fs.existsSync(filename)) {
           console.log(filename+ ": does not exist.");
-          return false;
+          return resolve();
       }
       var line_reader = readline.createInterface({
         input: fs.createReadStream(filename).pipe(zlib.createGunzip())
@@ -425,7 +466,7 @@ function ReadCompressedFileIA(filename){
     return new Promise(function(resolve, reject) {
       if (!fs.existsSync(filename)) {
           console.log(filename+ ": does not exist.");
-          return false;
+          return resolve();
       }
       var line_reader = readline.createInterface({
         input: fs.createReadStream(filename).pipe(zlib.createGunzip())
@@ -716,7 +757,7 @@ function PerformFastTests(url, status, filename, hash){
 
 
   if(digest_sigs[hash]){
-    WriteToStream('"DIGEST_SIG-' + digest_sigs[hash].name + '", "' + 'EXTRAS-' + digest_sigs[hash].name +"-"+ match_path  + '", "' + match_path + '", "' + url + '", "' + hostname + '", "' + domain + '", "' + domain_bits.protocol + '", "' + domain_bits.port + '", "' + status + '", "' +filename + '", "' + hash + '"', results_write_stream);
+    WriteToStream('"DIGEST_SIG-' + digest_sigs[hash].name + '", "' + 'DIGEST_SIG-' + digest_sigs[hash].name +"-"+ match_path  + '", "' + match_path + '", "' + url + '", "' + hostname + '", "' + domain + '", "' + domain_bits.protocol + '", "' + domain_bits.port + '", "' + status + '", "' +filename + '", "' + hash + '"', results_write_stream);
   }
   var tests_length = positive_tests.length;
   if(tests_length){
