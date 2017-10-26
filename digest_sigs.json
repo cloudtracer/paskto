@@ -383,12 +383,6 @@
   "digest": "PJMWGAVZG34KXXEZI6PXGIWWM34AJICV",
   "ssdeep": "6:/PdObk2Ge3LCzabnzRx3ezJLM4KCezo/3uy:Xkkve2enzRxy17ezC+y"
 },
-"2RBQ6IAHNNAGEGXFRLPWOM2L6KAOO7MI": {
-  "name": "CiscoWS-C3550-24_ZAMCOL_CE_ - /favicon.ico",
-  "path": "/favicon.ico",
-  "digest": "2RBQ6IAHNNAGEGXFRLPWOM2L6KAOO7MI",
-  "ssdeep": "3:Oby:Oby"
-},
 "GK3BVJMUL6NPKJ62LDAU2ZPCOBVUVYW2": {
   "name": "CiscoWS-C3550-24_ZAMCOL_CE_ - /",
   "path": "/",
@@ -616,12 +610,6 @@
   "path": "/wireless",
   "digest": "767KZOZVLQGZRGT5HKCXUNH7M5J6UWEU",
   "ssdeep": "384:LUDU58doFeKloFbuR5a7IjcXiswQK2+s3A1Et:LaETQ+a7IUlw8kEt"
-},
-"2RBQ6IAHNNAGEGXFRLPWOM2L6KAOO7MI": {
-  "name": "CiscoWS-C3850WirelessController - /favicon.ico",
-  "path": "/favicon.ico",
-  "digest": "2RBQ6IAHNNAGEGXFRLPWOM2L6KAOO7MI",
-  "ssdeep": "3:Oby:Oby"
 },
 "U35H6KT36UBV6IXBJQWYB4WHUYSYNLOT": {
   "name": "CiscoWS-C3850WirelessController - /static/cm/style/wnweb-reboot2.css",
@@ -1068,8 +1056,8 @@
   "ssdeep": "48:OfUcT/fTvlTjixIGPGxDttqAiT35KT5L5TSLfTt8kTKGnT7XwfTyK0W7uvTpTqnTbT7TvLVrM:sUcrfxKGqE3iw1N2hX+Wqm80denfnRM"
 },
 "52IULKYNQ7CKBIJA356FD4OE4WUHYXCN": {
-  "name": "phpMyAdmin - :8080/js/messages.php?lang=en&db=&collation_connection=utf8_unicode_ci&token=bbd39cc2b8c1acd63101db477cb9d2ad&v=4.6.5.2",
-  "path": ":8080/js/messages.php?lang=en&db=&collation_connection=utf8_unicode_ci&token=bbd39cc2b8c1acd63101db477cb9d2ad&v=4.6.5.2",
+  "name": "phpMyAdmin - :8080/js/messages.php",
+  "path": ":8080/js/messages.php",
   "digest": "52IULKYNQ7CKBIJA356FD4OE4WUHYXCN",
   "ssdeep": "768:hXHhl6ye/H3zB+UE3HxsCGttIBc+6hVsonQbhEa:hXHhlFuzBX2HxTytIV6hfQbhV"
 },
@@ -1098,8 +1086,8 @@
   "ssdeep": "3072:WUMDUMo1T9UMGUMCUwA8b2wUM6X8/UwgtfmMseNHeUYt:WUMDUMo15UMGUMCUwA8b2wUM6X8/UwgJmMseN+UYt"
 },
 "RMIIF6WJFJH5LVFN7HLBSGUZMPTN2OJN": {
-  "name": "phpMyAdmin - :8080/js/get_scripts.js.php?scripts%5B%5D=jquery/jquery-2.1.4.min.js&scripts%5B%5D=sprintf.js&scripts%5B%5D=ajax.js&scripts%5B%5D=keyhandler.js&scripts%5B%5D=jquery/jquery-ui-1.11.4.min.js&scripts%5B%5D=jquery/jquery.cookie.js&scripts%5B%5D=jquery/jquery.mousewheel.js&scripts%5B%5D=jquery/jquery.event.drag-2.2.js&scripts%5B%5D=jquery/jquery-ui-timepicker-addon.js&scripts%5B%5D=jquery/jquery.ba-hashchange-1.3.js&v=4.6.5.2",
-  "path": ":8080/js/get_scripts.js.php?scripts%5B%5D=jquery/jquery-2.1.4.min.js&scripts%5B%5D=sprintf.js&scripts%5B%5D=ajax.js&scripts%5B%5D=keyhandler.js&scripts%5B%5D=jquery/jquery-ui-1.11.4.min.js&scripts%5B%5D=jquery/jquery.cookie.js&scripts%5B%5D=jquery/jquery.mousewheel.js&scripts%5B%5D=jquery/jquery.event.drag-2.2.js&scripts%5B%5D=jquery/jquery-ui-timepicker-addon.js&scripts%5B%5D=jquery/jquery.ba-hashchange-1.3.js&v=4.6.5.2",
+  "name": "phpMyAdmin - :8080/js/get_scripts.js.php",
+  "path": ":8080/js/get_scripts.js.php",
   "digest": "RMIIF6WJFJH5LVFN7HLBSGUZMPTN2OJN",
   "ssdeep": "6144:PO4kyQQya98Hrd0qVsnlUYQJXunYIp3+yM+dHZ0BB0TE0xh0eC0X010x0R0L0wc8jImtVKHt2:FG0qVsIIp39WBOT9xuebka+egwA0"
 },
@@ -1907,12 +1895,114 @@
   "digest": "PXLRV7H3CTQQL2ALBQGX7TRXBIUKIHYK",
   "ssdeep": "12:hYNp/qwNFDvNbJw4xxaboR1XKCf0ktEjo+Y/lNQd40UlNRVxWU+oQL:hYNpnjbJwtsvXD05oP/l8tUlj7W7"
 },
-"DMZJDVHOUF44QQKFWKAUZNJ6NJIG5QQB": {
-  "name": "Welcometonginx_ - /favicon.ico",
-  "path": "/favicon.ico",
-  "digest": "DMZJDVHOUF44QQKFWKAUZNJ6NJIG5QQB",
-  "ssdeep": "12:TjeRHdHiHZdtklI5r8INGlTF5TF5TF5TF5TF5TFK:neRH988DTPTPTPTPTPTc"
+"BQHOKFFMQ7UUNVJLTYO62KH4S3M7OFUI": {
+  "name": "OracleSQLJRelease9_0_1_0_0 - :10000/",
+  "path": ":10000/",
+  "digest": "BQHOKFFMQ7UUNVJLTYO62KH4S3M7OFUI",
+  "ssdeep": "768:m6FLS0/lWexUfQM/QEchLsrtObpOKoEhv:m6BLWe4QM/QdhLsrtObYZEhv"
 },
+"L6AYETCBVAGWP57M3GBXC2ZHXEBRSUAI": {
+  "name": "OracleSQLJRelease9_0_1_0_0 - :10000/favicon.ico",
+  "path": ":10000/favicon.ico",
+  "digest": "L6AYETCBVAGWP57M3GBXC2ZHXEBRSUAI",
+  "ssdeep": "24:hM0mIAvy4WvsWjpma7JZRGNeHX+AYcvP2w2PpaXGiDHUk5:lmIAq1UWjpmiJZ+eHX+AdP2pp/k5"
+},
+"P4YOSPD6WSNNMODGSY2272N442YAOSZX": {
+  "name": "IBMHTTPServerfori5_OS - :443/",
+  "path": ":443/",
+  "digest": "P4YOSPD6WSNNMODGSY2272N442YAOSZX",
+  "ssdeep": "24:Hsq+M/H9VTGQIsxv64/UdWp4088WUdG5HDtyOBKgnT52/:Mq+GHOQIsJ6jWpaUSjtlBK+a"
+},
+"RLJ5KUDEMBCPNKT2NDKMYW27TBDY3S6Z": {
+  "name": "IBMHTTPServerfori5_OS - :443/favicon.ico",
+  "path": ":443/favicon.ico",
+  "digest": "RLJ5KUDEMBCPNKT2NDKMYW27TBDY3S6Z",
+  "ssdeep": "6:pn0+DyDBqWObkiTaOF2e6FmzRx3ezJLM4KCezoGD:J0+xkkF2e6FmzRxy17ezV"
+},
+"EDNVTSFYZ7HW335XC3QQLNGXHDGQI4CG": {
+  "name": "APACHEDFTServer - :8089/",
+  "path": ":8089/",
+  "digest": "EDNVTSFYZ7HW335XC3QQLNGXHDGQI4CG",
+  "ssdeep": "24:Hsq+M/H9VTGQIsxv64/UMWp4088WUdG5HDtyOaDgnT52/:Mq+GHOQIsJ6aWpaUSjtlY+a"
+},
+"RLJ5KUDEMBCPNKT2NDKMYW27TBDY3S6Z": {
+  "name": "APACHEDFTServer - :8089/favicon.ico",
+  "path": ":8089/favicon.ico",
+  "digest": "RLJ5KUDEMBCPNKT2NDKMYW27TBDY3S6Z",
+  "ssdeep": "6:pn0+DyDBqWObkiTaOF2e6FmzRx3ezJLM4KCezoGD:J0+xkkF2e6FmzRxy17ezV"
+},
+"JLXVB4EMZLRJF74B6GT73HYC6NFYIPXG": {
+  "name": "Tivoli-Access-Manager-WebSEAL - :443/favicon.ico",
+  "path": ":443/favicon.ico",
+  "digest": "JLXVB4EMZLRJF74B6GT73HYC6NFYIPXG",
+  "ssdeep": "48:L3i1mRmVf3gMEafGTqP+98O3MQ7gqqce0d1bcsH0A+:jkmif3gMEa+qP+913bqceCFJHu"
+},
+"3BZIOR42P7HRUQJDO7QLWPBMIYSEOUSW": {
+  "name": "Tivoli-Access-Manager-WebSEAL - :443/",
+  "path": ":443/",
+  "digest": "3BZIOR42P7HRUQJDO7QLWPBMIYSEOUSW",
+  "ssdeep": "48:i+qZw8Ws6tdY9WA1IIcGWslQYuAcyajh3z1p:txUWACIcGW9YupjxzP"
+},
+  "IXFYPGAW7XYB4I7RVTJZTD7O5RV53JHN": {
+    "name": "innovaphoneIP800 - /favicon-32x32.png",
+    "path": "/favicon-32x32.png",
+    "digest": "IXFYPGAW7XYB4I7RVTJZTD7O5RV53JHN",
+    "ssdeep": "48:EyOsPdYMF4QmNQMEk+HddCuaOmI2j7FF6R/dOy8EpT:5OjMFXmNf+HddC7vj7faO6"
+  },
+  "SRCNPKFYG5PESVICRGHTN6MT4JTQJMIJ": {
+    "name": "innovaphoneIP800 - /_resources/logo.png",
+    "path": "/_resources/logo.png",
+    "digest": "SRCNPKFYG5PESVICRGHTN6MT4JTQJMIJ",
+    "ssdeep": "768:4otrOEvI+r3mE5+laPiJfjCFdPTdl8VV0NZ4num:OEf3ma+4qJ7CFJWM4um"
+  },
+  "HGULJXY5C4JL7BDP6YPXNUXD6V6I4CIO": {
+    "name": "innovaphoneIP800 - /embed.js",
+    "path": "/embed.js",
+    "digest": "HGULJXY5C4JL7BDP6YPXNUXD6V6I4CIO",
+    "ssdeep": "1536:M6i6Fcpk337b6nHE2kA5/S/o/WmR+pQ0PMsoNjpk/5xzn2P9n7D:jv6t356EWmR+pQ0PMNpk/5xS"
+  },
+  "I6NNJHTIPUYDJ6QTEQGWKRLBJNXYHG4L": {
+    "name": "innovaphoneIP800 - /next/embed/styles/lounge.b86d4f6eedbae580658ac980cc1aa322.css",
+    "path": "/next/embed/styles/lounge.b86d4f6eedbae580658ac980cc1aa322.css",
+    "digest": "I6NNJHTIPUYDJ6QTEQGWKRLBJNXYHG4L",
+    "ssdeep": "1536:tn/nxHu4SYnBJXoFBMNupDRRuymg6766EY3nbb9i8:Z/xlXoFBMNuRRRuymg6766EY3"
+  },
+  "OLVQROW45GM2ASTANWQVT2J3W3NN5VDM": {
+    "name": "innovaphoneIP800 - /_resources/ccby_88x31.png",
+    "path": "/_resources/ccby_88x31.png",
+    "digest": "OLVQROW45GM2ASTANWQVT2J3W3NN5VDM",
+    "ssdeep": "24:fa/wt1Oe2+cRSjZKflLaYOYiD0mfP+X03Oj5OeS7bkpbt:i/c1OrdQgflLaY3iD0K+kiQeP"
+  },
+  "FDDV54RTAHRZ2QWOSPS5U3AFATWIFZWE": {
+    "name": "innovaphoneIP800 - /favicon-16x16.png",
+    "path": "/favicon-16x16.png",
+    "digest": "FDDV54RTAHRZ2QWOSPS5U3AFATWIFZWE",
+    "ssdeep": "24:CMl+sxGg6kXkWVBnZaT634GkCvd13Fpy7YmKZvzjSJEMzEfl9:f+WzXkKZaeeCr3F+DKZv8EpT"
+  },
+  "ZJPIZEVASA5UIISYQJJ3HXLIDA2V4AKF": {
+    "name": "innovaphoneIP800 - /next/embed/discovery.bundle.daedd146972fc7d8dffd9be34c404865.js",
+    "path": "/next/embed/discovery.bundle.daedd146972fc7d8dffd9be34c404865.js",
+    "digest": "ZJPIZEVASA5UIISYQJJ3HXLIDA2V4AKF",
+    "ssdeep": "384:yayf/5iCT65whqQPRcFrrmyNOONhulfXg8NXzYcdNW6TdZqawHpf6UybXq+P1BSJ7:m0kCwhqQPRcprmKOODkfXg8NjYcdNW6TdZ9wHpxk6umJ7"
+  },
+  "STKUZUZLZEAF3QQ7R6LOEDWSAM3WGL46": {
+    "name": "innovaphoneIP800 - /next/config.js",
+    "path": "/next/config.js",
+    "digest": "STKUZUZLZEAF3QQ7R6LOEDWSAM3WGL46",
+    "ssdeep": "96:pMsEgNZkJiVCWIg4ftunUvnMRXM9NbTAGpsDHS9friIOOgcHMWo8:ogLkJiVounDGFkDDHeziIBlJ"
+  },
+  "RW3Q2222PRCUC3J5ERK7M7XN3FP5RYXD": {
+    "name": "innovaphoneIP800 - /js/api.js",
+    "path": "/js/api.js",
+    "digest": "RW3Q2222PRCUC3J5ERK7M7XN3FP5RYXD",
+    "ssdeep": "192:+0sZc3r1w4hbgWou5bdnv7r+BgEb1pobado4YCwm5Md+PFXSWG:+0Cc71wQgWXdnuBdb1OmwmG+PZSWG"
+  },
+  "KYDGVNC6G5JUSHCUHVHF2P7AALIGTHEZ": {
+    "name": "innovaphoneIP800 - /searchIndex.json",
+    "path": "/searchIndex.json",
+    "digest": "KYDGVNC6G5JUSHCUHVHF2P7AALIGTHEZ",
+    "ssdeep": "3072:3T7fU/kQqTl+3aRN07ucKEYINJHtYve8cuYNDavIumQui1OvVSSo:HrQqTlIa307uL3xve8ZYpaBmQdOvU"
+  },
 "ER6ETZFAUELNGJ66DZYDEFNG5WUEHBKB": {
   "name": "HOMEDESKTOP - /",
   "path": "/",
@@ -1980,7 +2070,7 @@
   "ssdeep": "96:RbXTojGnpQ/MYVG3g4iGlGXGGGiG0GlCGFG1SGCcGIG1xmGZG3GiGrGZGvGXGvSH7cFI1:xXqihYs3g4lcWRl/lF811C371XI2lS4eWvS48"
 },
 "TM7R32YEDDSLNLZNYWUQNCLWRHUJOFHL": {
-  "name": "LotusNotesTraveler - /domcfg.nsf/a5f213b09e138b72052566b20068aa38/$Body/0.1C0C?OpenElement&FieldElemFormat=jpg",
+  "name": "LotusNotesTraveler - domcfg.nsf",
   "path": "/domcfg.nsf/a5f213b09e138b72052566b20068aa38/$Body/0.1C0C?OpenElement&FieldElemFormat=jpg",
   "digest": "TM7R32YEDDSLNLZNYWUQNCLWRHUJOFHL",
   "ssdeep": "192:lgpow0uD2rMEGxsD4cX8nuAj5ARmPbzKa418cCyL7AZGdD+9VA0bZxhp4WPSCqoN9qTHEy4UqY:lOoFPramyuqARmPuxD7OGd6V9bfhuWPSnoN9wHEk"
@@ -1991,6 +2081,180 @@
   "digest": "T3L4DZTOWHHRTUTNP7AZYJFGVAOADWVX",
   "ssdeep": "768:PBAmI6XeiIapJfK5vJ8Wx1syfPLtc2saxn0PAO:PhXN4Lx1syxCax0AO"
 },
+"JW236EL77DYTSL5LHNBYEFWXZ72K4SLW": {
+  "name": "Outlook-Web-Access - /owa/auth/15.1.1034/themes/resources/segoeui-regular.ttf",
+  "path": "/owa/auth/15.1.1034/themes/resources/segoeui-regular.ttf",
+  "digest": "JW236EL77DYTSL5LHNBYEFWXZ72K4SLW",
+  "ssdeep": "1536:GwdMTwN1Dw6tewUZtyVy+mI7qfrLFKpi:GwdMS1ve0V+CuLFh"
+},
+"EZYS47MDCX3EZXQ3BPR5IPYHZBMGELL3": {
+  "name": "Outlook-Web-Access - /owa/auth/logon.aspx",
+  "path": "/owa/auth/logon.aspx",
+  "digest": "EZYS47MDCX3EZXQ3BPR5IPYHZBMGELL3",
+  "ssdeep": "768:G39QS4/yu1GirLX9ciGwPnzz+m5kRdKV7aQblHoJmgK4e2FuzpqPclTrcO:rGinX9ckzz+m5okF5r4nFuOcZcO"
+},
+"YZYTDQQQ2QK3QEZQVD2WG3JUAXX6SAW4": {
+  "name": "NVR301-08-P8 - :9000/?_=14318405339",
+  "path": ":9000/?_=14318405339",
+  "digest": "YZYTDQQQ2QK3QEZQVD2WG3JUAXX6SAW4",
+  "ssdeep": "96:FUGUI6AtNx+4yzxY0Oxf5w0l3fXd/4SRlg2RzqZcBpm:WGHNHyzYffdASR62ReV"
+},
+"DLHXJX7NJIIDUKOGBFGTT7TOM7OABX2D": {
+  "name": "NVR301-08-P8 - :9000/style/index_3050207.css",
+  "path": ":9000/style/index_3050207.css",
+  "digest": "DLHXJX7NJIIDUKOGBFGTT7TOM7OABX2D",
+  "ssdeep": "96:cG9ztER8nKEnRRiFiCZHpsFar5G6yZkPrBhjxfPZfPIfPQBpB0BnTPM:cG9z2mrnRYlyZkPrBhjxfPZfPIfPQBpB0Bo"
+},
+"HVHQI6455DYX2GFTT6V7YFTPW2Y3MPJ3": {
+  "name": "NVR301-08-P8 - :9000/images/icon-warning_3f20258.gif",
+  "path": ":9000/images/icon-warning_3f20258.gif",
+  "digest": "HVHQI6455DYX2GFTT6V7YFTPW2Y3MPJ3",
+  "ssdeep": "24:KaGuWEHeABhFvSeNCpdiTtwUDcvgxuFigOPS5imVe3pBDGv07ue:fGo9djKiaUDcOuklqu3pK0qe"
+},
+"6W62OV2H3NU37GDJ76SPZOW4GM7VP5SF": {
+  "name": "NVR301-08-P8 - :9000/script/common_fc6f69e.js",
+  "path": ":9000/script/common_fc6f69e.js",
+  "digest": "6W62OV2H3NU37GDJ76SPZOW4GM7VP5SF",
+  "ssdeep": "768:gaSbmB8SNuJ9ZLhS5bLE5OWLNe8q5m+9Ju579Bm8mom+lBv2MMtxQK7FPLu+3Y8TV4AjK8Dp4tn39Gy0X3nwk021xOQ:ABhK7NHV48Dp4tn3wy6w+7n"
+},
+"PQCDK5RVWDURWCZMBTXPKROVYPG5TGID": {
+  "name": "NVR301-08-P8 - :9000/script/index_49babcf.js",
+  "path": ":9000/script/index_49babcf.js",
+  "digest": "PQCDK5RVWDURWCZMBTXPKROVYPG5TGID",
+  "ssdeep": "192:bI/cqX5kMcLxERM5yUA+yxMT1dJ0b3Cm4mvmALA2aFSK:PRxEJ3+yxGJ0Y2a4K"
+},
+"ULFIBIIJET2JL4Z2OBBOSHGDODV5Z2XR": {
+  "name": "NVR301-08-P8 - :9000/script/static_b7fe8d2.js",
+  "path": ":9000/script/static_b7fe8d2.js",
+  "digest": "ULFIBIIJET2JL4Z2OBBOSHGDODV5Z2XR",
+  "ssdeep": "384:QBAhdOej6kjzwdhrzYWB6ATNWFC5CLCKuAV9BF1cg+f8zJkbOs:4AjOej6kvwdhrzYsTN/5CLCKjDcg+fX"
+},
+"XYOCCMACSACRDOU6T32WAGPU2SNGTEX2": {
+  "name": "NVR301-08-P8 - :9000/images/login_form_background_449dfee.gif",
+  "path": ":9000/images/login_form_background_449dfee.gif",
+  "digest": "XYOCCMACSACRDOU6T32WAGPU2SNGTEX2",
+  "ssdeep": "6:e9beCoHyE/GC/QDqkNO2pNx7kEyIZ4Plzt6TjOCYxrowhNc/xzkJwcbp/:U/CNc3x7zbZmJt61YxAW"
+},
+"Q3MQ3372YY7H5EEF5T2TXR7WUOFUGC6F": {
+  "name": "NVR301-08-P8 - :9000/images/login-header_914f13a.png",
+  "path": ":9000/images/login-header_914f13a.png",
+  "digest": "Q3MQ3372YY7H5EEF5T2TXR7WUOFUGC6F",
+  "ssdeep": "384:TRGqscQIDE+A3xx2SanWMrCUqOgQNt8citrMR:hLE+Oxx2SaWMrmmt8citrMR"
+},
+"NMRNGMUNCE7CHEGK2DZUUYMUWAZAC53X": {
+  "name": "NVR301-08-P8 - :9000/images/logo.png",
+  "path": ":9000/images/logo.png",
+  "digest": "NMRNGMUNCE7CHEGK2DZUUYMUWAZAC53X",
+  "ssdeep": "24:VT6L13k2JqOPMSiJZJmx3zlw63puxgXdDDCdww3zZ7:VGL13kWsJZJG3hw63UsNDgZ7"
+},
+"W2EI3PO5D2YVIYASIYKMABTQJWG2MDNV": {
+  "name": "NVR301-08-P8 - :9000/images/bg/btn-skin_82fa90d.png",
+  "path": ":9000/images/bg/btn-skin_82fa90d.png",
+  "digest": "W2EI3PO5D2YVIYASIYKMABTQJWG2MDNV",
+  "ssdeep": "96:3vyWDtvYQtHfxKc7OnseTDLfZJD2SnqeI3AJ6:fXBYCp0nsAXX2Sn+I6"
+},
+"ALKCL7SPBIZC3VKYTR5EGTM3747FDDOG": {
+  "name": "NVR301-08-P8 - :9000/favicon.ico",
+  "path": ":9000/favicon.ico",
+  "digest": "ALKCL7SPBIZC3VKYTR5EGTM3747FDDOG",
+  "ssdeep": "48:3d5xym9fiO6T3rKWDINRWl3nBWW3pQFz7LC2B:vxnYnrtDINyncI+vLb"
+},
+"RHQAPW4HO6S22F7QRZ7AVFBB6OORE55T": {
+  "name": "NVR301-08-P8 - :9000/res/Web_en_US.json?_=1508977872985",
+  "path": ":9000/res/Web_en_US.json?_=1508977872985",
+  "digest": "RHQAPW4HO6S22F7QRZ7AVFBB6OORE55T",
+  "ssdeep": "1536:Sl6+g+l0SMqbPlRNM2dm6eb38h9IsjFmih3SZEbX2UY:S6SK6eb38h9IsjFmih3SYy"
+},
+"Z4AJDYP77KTXPHP5EYDLECRGBWLK2PT5": {
+  "name": "NVR301-08-P8 - :9000/style/color.css",
+  "path": ":9000/style/color.css",
+  "digest": "Z4AJDYP77KTXPHP5EYDLECRGBWLK2PT5",
+  "ssdeep": "3:Obv:Obv"
+},
+"OZQ47UP2GW4QBHO4GKVU5RUTUXUWBTRM": {
+  "name": "NVR301-08-P8 - :9000/cgi-bin/main-cgi?json={%22cmd%22:%20116}&_=1508977872984",
+  "path": ":9000/cgi-bin/main-cgi?json={%22cmd%22:%20116}&_=1508977872984",
+  "digest": "OZQ47UP2GW4QBHO4GKVU5RUTUXUWBTRM",
+  "ssdeep": "6:atE2br+HxgHhoSjwW4OAhXe/eA8INVg+:ai2byHxgeFW45Xe/TxNVg+"
+},
+"4FOIQA432SMTSV4DVK26F4PHRGQ7OLAK": {
+    "name": "OctoPrint - :8081/static/webassets/packed_libs.css?59a4290c",
+    "path": ":8081/static/webassets/packed_libs.css?59a4290c",
+    "digest": "4FOIQA432SMTSV4DVK26F4PHRGQ7OLAK",
+    "ssdeep": "1536:l8AVR7aD2DXM8e0+UqNAkejuwTGHtR/7a2ocF1:1aDuLo7IcF1"
+  },
+  "HCAZHQUJVBQ2CPZJX77PQFUW2TUMIB5A": {
+    "name": "OctoPrint - :8081/",
+    "path": ":8081/",
+    "digest": "HCAZHQUJVBQ2CPZJX77PQFUW2TUMIB5A",
+    "ssdeep": "3072:oAxyHkEq4FndW/hw89Bv++0KKcm31Wz4UFamPcTS4sOTyXC9M0NLMIm673fsIUIg5vbaUiS3c2c51raScPyb+QMBUSMActpZXwQKZJddQtM1KP:CsBvSF131WzWTS0Tyy97moEp0vvbJj"
+  },
+  "NTRHXUNVJBYZOXDJLGYAZA4GMEEGON6S": {
+    "name": "OctoPrint - :8081/static/img/tentacle-20x20.png",
+    "path": ":8081/static/img/tentacle-20x20.png",
+    "digest": "NTRHXUNVJBYZOXDJLGYAZA4GMEEGON6S",
+    "ssdeep": "24:I6/je+U12trKIb2SSkpeMXc9H7pqePYsMiv1ND:djeBMrFpeMm7AeB3D"
+  },
+  "TLTL5STYL6RKQWAMBJZANXNJFTDQXIVQ": {
+    "name": "OctoPrint - :8081/static/webassets/packed_core.css?ac89acf1",
+    "path": ":8081/static/webassets/packed_core.css?ac89acf1",
+    "digest": "TLTL5STYL6RKQWAMBJZANXNJFTDQXIVQ",
+    "ssdeep": "384:cAGeuNPl4SBNEqpYC0QkgaLH0UEjnbJMj6aFc+QMpIiQGH5o64f03tglbSBNSP1jtGeXNPd+qj7x:gCsUEj+Cpf"
+  },
+  "IAZY7Y4V6JIOWB2JGX5MGI73V3SJF7NC": {
+    "name": "OctoPrint - :8081/static/webassets/packed_client.js?788179ad",
+    "path": ":8081/static/webassets/packed_client.js?788179ad",
+    "digest": "IAZY7Y4V6JIOWB2JGX5MGI73V3SJF7NC",
+    "ssdeep": "768:M5dkSXPbXp1zbM+dGNV2rqUv1BHZkDvCmuENuT:MwSXPbXT6eHZkDvChT"
+  },
+  "TTIET4I5YAOWUQTXFBDR3ZZOBQHLOXZA": {
+    "name": "OctoPrint - :8081/static/webassets/packed_core.js?abf24465",
+    "path": ":8081/static/webassets/packed_core.js?abf24465",
+    "digest": "TTIET4I5YAOWUQTXFBDR3ZZOBQHLOXZA",
+    "ssdeep": "6144:/p+n/4WQOoz4H49rJSvjBGZgn+MYQTfdl4:R+njQL7JSvjBGyLK"
+  },
+  "DKVXNR3GEOVBULAEJQ4FB32BGBNAN2GU": {
+    "name": "OctoPrint - :8081/static/img/icon-sd-black-14.png",
+    "path": ":8081/static/img/icon-sd-black-14.png",
+    "digest": "DKVXNR3GEOVBULAEJQ4FB32BGBNAN2GU",
+    "ssdeep": "6:6v/lhP8hkQzFnlRdKcBhkteud6NDB3YW9UtORbp:6v/7khbzFnBZXGeud6RBoN21"
+  },
+  "J5GPBJUCS6OCV6ZY5RZXNT7EDZ64G4GK": {
+    "name": "OctoPrint - :8081/static/img/graph-background.png",
+    "path": ":8081/static/img/graph-background.png",
+    "digest": "J5GPBJUCS6OCV6ZY5RZXNT7EDZ64G4GK",
+    "ssdeep": "768:+27MmFLgcFNZjJRyhlMQVPzTQNbOG+ZuwwUI9Cm:JFdNZdRwJVMbyuHCm"
+  },
+  "LSI4KKRMOKFTCQCMIK4KAUCNV3BHLEPL": {
+    "name": "OctoPrint - :8081/static/img/tentacle-32x32.png",
+    "path": ":8081/static/img/tentacle-32x32.png",
+    "digest": "LSI4KKRMOKFTCQCMIK4KAUCNV3BHLEPL",
+    "ssdeep": "24:d6/jpmqf+BJJccVoCuMWSK1EDwOMADdxmS99FGtC/XI3iIpe8r9PZ:+j8qfqACRLMqDmSPFGtC/XIrhrb"
+  },
+  "Y4CXQCODQZMN7JLO4DIMPVA2NO5RCKXP": {
+    "name": "OctoPrint - :8081/i18n/en/messages.js",
+    "path": ":8081/i18n/en/messages.js",
+    "digest": "Y4CXQCODQZMN7JLO4DIMPVA2NO5RCKXP",
+    "ssdeep": "3:SgphUlKE7f9JKGFH1uEWv9VeUJLWJJz:TnaJKsQEC9VeUBWJZ"
+  },
+  "AEQKD6IHR2ZWOMLETQDE2FVL5PIZGD25": {
+    "name": "OctoPrint - :8081/sockjs/info?t=1508978192993",
+    "path": ":8081/sockjs/info?t=1508978192993",
+    "digest": "AEQKD6IHR2ZWOMLETQDE2FVL5PIZGD25",
+    "ssdeep": "3:YANrfPDwd/30+mcmk9Kf6JVY:YAZw++mQof6Jy"
+  },
+  "E4EYEIEE3NWAJBFGUQNJX52GVU6GRMLN": {
+    "name": "OctoPrint - :8081/static/webassets/packed_libs.js?16a717e3",
+    "path": ":8081/static/webassets/packed_libs.js?16a717e3",
+    "digest": "E4EYEIEE3NWAJBFGUQNJX52GVU6GRMLN",
+    "ssdeep": "24576:ZxYmDTmFyHsDMPfOA0R/lDzUUXBn5ko7TL9G+yfklvTmeCJ:ZxYmDTmFyHsDMPfOA09lEUXBn5ko7TL9G+yfklrmZ"
+  },
+  "ZXGDCH3MHNV7UBAEZQUR3MI6PM7GZBG5": {
+    "name": "OctoPrint - :8081/api/login",
+    "path": ":8081/api/login",
+    "digest": "ZXGDCH3MHNV7UBAEZQUR3MI6PM7GZBG5",
+    "ssdeep": "3:PIy796FD0k+zrrIJZNQEXRnBeBvETbjSraf+PSABFESwzRx3DW:B8FQk+HrIjuEX8EurzEPzRx3y"
+  },
   "MQE5TNERQOP6UB6CM624HECN42JNUT3K" : { "name":"Maybe IoT" },
   "FIRWQ7MYLTMRJAOANKKBX37S5MHOUL6X" : { "name":"Maybe IoT" },
   "MN6KB2NT5TCDTKCCLHPWMOL2P65WC5PP" : { "name":"Maybe IoT" },
