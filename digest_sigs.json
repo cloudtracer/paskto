@@ -2255,6 +2255,54 @@
     "digest": "ZXGDCH3MHNV7UBAEZQUR3MI6PM7GZBG5",
     "ssdeep": "3:PIy796FD0k+zrrIJZNQEXRnBeBvETbjSraf+PSABFESwzRx3DW:B8FQk+HrIjuEX8EurzEPzRx3y"
   },
+  "RJB3M6VVTWJMM5HHWQIRBL62H2DEOKEV": {
+  "name": "ARC-WEB - /index.html",
+  "path": "/index.html",
+  "digest": "RJB3M6VVTWJMM5HHWQIRBL62H2DEOKEV",
+  "ssdeep": "24:hYUeRe2xyIdPuETVk6gm1E1pGQ8wYpG+RO/INVxQV4NkJN8EX2UoBY:tej9dPuVyoT8x7ROc/NmNdX2UoS"
+},
+"3DUCKRZWKF3OBBRNW5MTEKRFMZBJJIVL": {
+  "name": "ARC-WEB - /cgi/mars_cgi?file=arcweb1&data=arc_enabled",
+  "path": "/cgi/mars_cgi?file=arcweb1&data=arc_enabled",
+  "digest": "3DUCKRZWKF3OBBRNW5MTEKRFMZBJJIVL",
+  "ssdeep": "3:a38HfEHemBHlDBHuLuJI:a38/EHJHldHEX"
+},
+"RTEUWUSQ22FDUSXV5CD3NJGCP4XA2OUK": {
+  "name": "ARC-WEB - /cgi/mars_cgi?file=arcweb1&data=arc_name",
+  "path": "/cgi/mars_cgi?file=arcweb1&data=arc_name",
+  "digest": "RTEUWUSQ22FDUSXV5CD3NJGCP4XA2OUK",
+  "ssdeep": "3:a38HfEHemBHlDBHj5F9n:a38/EHJHldHj5bn"
+},
+"FOLUGE35TADPEWO2GHGI76RQXCJ5EJ5U": {
+  "name": "ARC-WEB - /css/styles.css",
+  "path": "/css/styles.css",
+  "digest": "FOLUGE35TADPEWO2GHGI76RQXCJ5EJ5U",
+  "ssdeep": "384:yuHyr4Tu11oRxkAibgf4Awn9j6eDLxYmDiTca4ZZW1D/4P02cXe:yuHyrku114kAc+4Awn9j6eDLxYmguZWRC02r"
+},
+"IEVL5DKB5SMSY4BTRF3UVPFKEJ7VIAJJ": {
+  "name": "ARC-WEB - /js/webarc.js",
+  "path": "/js/webarc.js",
+  "digest": "IEVL5DKB5SMSY4BTRF3UVPFKEJ7VIAJJ",
+  "ssdeep": "384:s94qXQFM/d7GAP2aZT3IXSidmTRFArOroVe+xp:7JM/bO98AyrgR"
+},
+"WTY3PK4YLSUWQ6V6OQ5JA2VBGKPLCDUT": {
+  "name": "ARC-WEB - /cgi/mars_cgi?file=arcweb4&data=arc_enabled",
+  "path": "/cgi/mars_cgi?file=arcweb4&data=arc_enabled",
+  "digest": "WTY3PK4YLSUWQ6V6OQ5JA2VBGKPLCDUT",
+  "ssdeep": "3:a38HfEHemBHlDBHvXX:a38/EHJHldHvH"
+},
+"QNT3QRQ3TXQLWN7FRWUGISYI4XOCFGPS": {
+  "name": "ARC-WEB - /images/favicon.ico",
+  "path": "/images/favicon.ico",
+  "digest": "QNT3QRQ3TXQLWN7FRWUGISYI4XOCFGPS",
+  "ssdeep": "24:+IvKRbOqZI////////p+nYualToFoL2XrX+F6UrwnY2Zb5:mbOqZI////////p+nYualT5L2zNlj"
+},
+"66HD5CIIAI3DE3HJ5OAEITYO2V6KRNLH": {
+  "name": "ARC-WEB - /images/sprite.png",
+  "path": "/images/sprite.png",
+  "digest": "66HD5CIIAI3DE3HJ5OAEITYO2V6KRNLH",
+  "ssdeep": "3072:zlgMSXRtZUEhgMvhkOEVRChfzcGswn+NvhmTMiD:zlLSXtUEhgMvhkOEVghfAM8hmY0"
+},
   "MQE5TNERQOP6UB6CM624HECN42JNUT3K" : { "name":"Maybe IoT" },
   "FIRWQ7MYLTMRJAOANKKBX37S5MHOUL6X" : { "name":"Maybe IoT" },
   "MN6KB2NT5TCDTKCCLHPWMOL2P65WC5PP" : { "name":"Maybe IoT" },

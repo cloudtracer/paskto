@@ -1,6 +1,6 @@
 # Paskto - Passive Web Scanner
 
-  Paskto will passively scan the web using the Common Crawl internet index either by downloading the indexes on request or parsing data from your local system. URLs are then processed through Nikto and known URL lists to identify interesting content.                                                          
+  Paskto will passively scan the web using the Common Crawl internet index either by downloading the indexes on request or parsing data from your local system. URLs are then processed through Nikto and known URL lists to identify interesting content. Hash signatures are also used to identify known default content for some IoT devices or web applications.                                                     
 ```
   Options
 
@@ -23,6 +23,10 @@
     Scan dir with indexes.               $ node paskto.js -d "/tmp/CC-MAIN-2017-39-index/" -o /tmp/rest-results.csv -a  /tmp/all-urls.csv                                                              
 
 ```
+
+## Create Custom Digest signatures
+A quick way to create new digest signatures for default content is to us [WARCPinch](https://chrome.google.com/webstore/detail/warcpinch/aejhoiiddnmdjhkkdobbcnebajjcjdkl) which is a Chrome Extension I hacked together based off of WARCreate except it creates digital signatures as well as WARC files. (Also adds highlight and right click functionality, which is useful to just highlight any identifying text to use as the name of the signatures).
+
 ## News & Updates
 
 Follow [@ThreatPinch](https://twitter.com/ThreatPinch) on twitter.
