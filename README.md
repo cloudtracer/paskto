@@ -25,7 +25,7 @@
 ```
 
 ## Create Custom Digest signatures
-A quick way to create new digest signatures for default content is to us [WARCPinch](https://chrome.google.com/webstore/detail/warcpinch/aejhoiiddnmdjhkkdobbcnebajjcjdkl) which is a Chrome Extension I hacked together based off of WARCreate except it creates digital signatures as well as WARC files. (Also adds highlight and right click functionality, which is useful to just highlight any identifying text to use as the name of the signatures).
+A quick way to create new digest signatures for default content is to use [WARCPinch](https://chrome.google.com/webstore/detail/warcpinch/aejhoiiddnmdjhkkdobbcnebajjcjdkl) which is a Chrome Extension I hacked together based off of WARCreate except it creates digital signatures as well as WARC files. (Also adds highlight and right click functionality, which is useful to just highlight any identifying text to use as the name of the signatures).
 
 ## News & Updates
 
