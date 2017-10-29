@@ -17,7 +17,7 @@
 
   Examples
 
-    Scan domain, save results and URLs   $ node paskto.js -s "www.msn.com" -o /tmp/rest-results.csv -a /tmp/all-       urls.csv                                                                       
+    Scan domain, save results and URLs   $ node paskto.js -s "www.msn.com" -o /tmp/rest-results.csv -a /tmp/all-urls.csv                                                                       
     Scan domain with CC wildcards.       $ node paskto.js -s "*.msn.com" -o /tmp/rest-results.csv -a /tmp/all-urls.csv  
     Scan domain, only save URLs.         $ node paskto.js -s "www.msn.com" -o /tmp/rest-results.csv                     
     Scan dir with indexes.               $ node paskto.js -d "/tmp/CC-MAIN-2017-39-index/" -o /tmp/rest-results.csv -a  /tmp/all-urls.csv                                                              

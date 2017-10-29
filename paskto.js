@@ -351,27 +351,32 @@ function ProcessFilesSynchonouslyCC(array, fn) {
       WriteToStream('"' + "HTTP_CODE" + '", "' + "HASH" + '", "'  + "URL"  + '"', urls_write_stream);
     }
     function next() {
-        if (index < array.length) {
-            var name = "";
-            if(typeof array === "string"){
-              name = array;
-              index = array.length;
-            } else {
-              name = array[index];
+        try{
+          if (index < array.length) {
+              var name = "";
+              if(typeof array === "string"){
+                name = array;
+                index = array.length;
+              } else {
+                name = array[index];
+              }
+              console.warn("Reading filename: " + name);
+              fn(name).then(next);
+              index++;
+          } else {
+            if(results_write_stream){
+              results_write_stream.end();
+              console.log("INFO: test results file located at - " + args['output-file']);
             }
-            console.warn("Reading filename: " + name);
-            fn(name).then(next);
-            index++;
-        } else {
-          if(results_write_stream){
-            results_write_stream.end();
-            console.log("INFO: test results file located at - " + args['output-file']);
+            if(urls_write_stream){
+              urls_write_stream.end();
+              console.log("INFO: save-all-urls file located at - " + args['save-all-urls']);
+            }
+            console.log("INFO: Paskto successfully finished.")
           }
-          if(urls_write_stream){
-            urls_write_stream.end();
-            console.log("INFO: save-all-urls file located at - " + args['save-all-urls']);
-          }
-          console.log("INFO: Paskto successfully finished.")
+        } catch(err){
+          console.log(err);
+          next();
         }
     }
     next();
@@ -386,6 +391,7 @@ function ProcessFilesSynchonouslyIA(array, fn) {
       //WriteToStream('"' + "HTTP_CODE" + '", "' + "HASH" + '", "' + "DATE" + '", "'  + "URL"  + '"', ia_urls_write_stream);
     }
     function next() {
+      try{
         if (index < array.length) {
             var name = "";
             if(typeof array === "string"){
@@ -408,6 +414,10 @@ function ProcessFilesSynchonouslyIA(array, fn) {
           }
           console.log("INFO: Paskto successfully finished.")
         }
+      } catch(err){
+        console.log(err);
+        next();
+      }
     }
     next();
 }
@@ -445,10 +455,16 @@ function ReadCompressedFileCC(filename){
         } catch(error){
           console.error(line);
           console.error(error);
+          resolve();
         }
       });
       line_reader.on('close', function(){
         console.error("File " + filename + " completed.");
+        console.error("Lines read: " + line_count);
+        resolve();
+      });
+      line_reader.on('error', function(error){
+        console.error("File " + filename + " error: " + error);
         console.error("Lines read: " + line_count);
         resolve();
       });
@@ -485,6 +501,11 @@ function ReadCompressedFileIA(filename){
       });
       line_reader.on('close', function(){
         console.error("File " + filename + " completed.");
+        console.error("Lines read: " + line_count);
+        resolve();
+      });
+      line_reader.on('error', function(error){
+        console.error("File " + filename + " error: " + error);
         console.error("Lines read: " + line_count);
         resolve();
       });
