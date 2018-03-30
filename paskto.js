@@ -21,12 +21,16 @@ var db_hash = {};
 
 var line_count = 0;
 
-var cc_index = "CC-MAIN-2017-39-index";
+var cc_index = "CC-MAIN-2018-13-index";
 var args;
 var cwd = process.cwd();
 var db = {};
 var extras = require("./extras.json");
 var digest_sigs = require("./digest_sigs.json");
+
+var date = new Date().getFullYear();
+var prev = date -1;
+var nextYear = date +1;
 
 var flag_use_extras = true;
 var flag_use_nikto = true;
@@ -100,6 +104,13 @@ var option_list = [
     description: 'Save CSV List of all URLS. Ex: -a /tmp/all_urls.csv'
   },
   {
+    name: 'max-pages',
+    alias: 'm',
+    type: Number,
+    typeLabel: '[underline]{Integer}',
+    description: 'Max number of pages. Ex: -m 10'
+  },
+  {
     name: 'help',
     alias: "h",
     type: Boolean,
@@ -156,7 +167,6 @@ Promise.each = function(arr, fn) { // take an array and a function
 function Main(){
   args = cli_args(option_list, { partial: true });
   const usage = cli_usage(sections);
-  //console.log(args);
   if(args['help'] || Object.keys(args).length == 0 ){
     console.log(usage);
     return true;
@@ -180,18 +190,12 @@ function Main(){
     test_names = Object.keys(db);
     DBToHash();
   }
-  //ReadFile();
-  //ReadDirectory('../../../all.com/');
-
-  //ReadCompressedFile('../../../common-crawl/cdx-00000.gz')
-  //ReadFullDirectoryCC('/media/brewerm/CommonCrawl/cc');
   if(args['save-all-urls']){
     if(fs.existsSync(args['save-all-urls'])){
       console.error("WARN: " + args['save-all-urls'] + " already exists, overwriting...");
       fs.unlinkSync(args['save-all-urls']);
     }
     urls_write_stream = require('fs').createWriteStream(args['save-all-urls'],{ flags:'a' });
-    //ia_urls_write_stream = require('fs').createWriteStream(args['save-all-urls'] + "-IA",{ flags:'a' });
   }
   if(args['output-file']){
     if(fs.existsSync(args['output-file'])){
@@ -241,43 +245,46 @@ function Main(){
   }
   if(args['scan']){
     var promises = [];
-
     return common_crawl.PagesByURL({currentIndex: cc_index, queryString: args['scan']}).then(function(results){
-      //console.log(results)
+      var filepaths = [];
       var json = JSON.parse(results);
-      var num_pages = json.pages;
+      var num_pages = args['max-pages'] ? args['max-pages'] : json.pages;
+      if(num_pages > json.pages){
+        num_pages = json.pages;
+      }
       var params = [];
-      console.log("INFO: Found " + num_pages + " pages of Common Crawl data.");
+      console.log("INFO: Found " + json.pages + " pages of Common Crawl data.");
       for(var i=0; i<num_pages; i++){
         params.push({currentIndex: cc_index, queryString: args['scan'], page: i});
       }
       return Promise.each(params,function(eachArr){
-        return common_crawl.FindByURL(eachArr);
-      }).then(function(filepaths){
-        console.log(filepaths);
+        return common_crawl.FindByURL(eachArr).then(function(path){
+          return filepaths.push(path);
+        });
+      }).then(function(res){
         ProcessFilesSynchonouslyCC(filepaths, ReadCompressedFileCC)
       });
     }).then(function(){
       return internet_archive.PagesByURL({currentIndex: cc_index, queryString: args['scan']}).then(function(results){
-        //console.log(results)
-        //var json = JSON.parse(results);
-        var num_pages = results.trim();
+        var filepaths = [];
+        var num_pages = args['max-pages'] ? args['max-pages'] : results.trim();
+        if(num_pages > results.trim()){
+          num_pages = results.trim();
+        }
         var params = [];
-        console.log("INFO: Found " + num_pages + " pages of Internet Archive data.");
+        console.log("INFO: Found " + results.trim() + " pages of Internet Archive data.");
         for(var i=0; i<num_pages; i++){
-          params.push({currentIndex: cc_index, queryString: args['scan'], page: i});
-          //console.log("Page: " + i);
+          params.push({currentIndex: prev + "-" +nextYear, queryString: args['scan'], page: i});
         }
         return Promise.each(params,function(eachArr){
-          return internet_archive.FindByURL(eachArr);
-        }).then(function(filepaths){
+          return internet_archive.FindByURL(eachArr).then(function(path){
+            return filepaths.push(path);
+          })
+        }).then(function(res){
           results_write_stream = require('fs').createWriteStream(args['output-file'],{ flags:'a' });
           urls_write_stream = require('fs').createWriteStream(args['save-all-urls'],{ flags:'a' });
           ProcessFilesSynchonouslyIA(filepaths, ReadCompressedFileIA)
         })
-        //for(var i=0; i<num_pages; i++){
-          //promises.push(internet_archive.FindByURL());
-        //}
       });
     });
   }
@@ -300,7 +307,6 @@ function PerformIARequestSync(array, fn) {
 }
 
 function ReadFullDirectoryCC(dirname, output){
-  //console.error("Reading Directory: " + dirname);
   fs.readdir(dirname, function(err, filenames) {
     if (err) {
       onError(err);
@@ -309,17 +315,14 @@ function ReadFullDirectoryCC(dirname, output){
     var filepaths = [];
     filenames.forEach(function(filename) {
       if(filename.indexOf('.gz') !== -1){
-        //console.error("Getting filename: " + dirname + '/' + filename);
         filepaths.push(dirname + '/' + filename);
       }
     });
     ProcessFilesSynchonouslyCC(filepaths, ReadCompressedFileCC);
-    //ProcessFilesSynchonouslyIA(filepaths, ReadCompressedFileIA)
   });
 }
 
 function ReadFullDirectoryIA(dirname, output){
-  //console.error("Reading Directory: " + dirname);
   fs.readdir(dirname, function(err, filenames) {
     if (err) {
       onError(err);
@@ -328,18 +331,21 @@ function ReadFullDirectoryIA(dirname, output){
     var filepaths = [];
     filenames.forEach(function(filename) {
       if(filename.indexOf('.gz') !== -1){
-        //console.error("Getting filename: " + dirname + '/' + filename);
         filepaths.push(dirname + '/' + filename);
       }
     });
     ProcessFilesSynchonouslyIA(filepaths, ReadCompressedFileIA);
-    //ProcessFilesSynchonouslyIA(filepaths, ReadCompressedFileIA)
   });
 }
 
 function WriteToStream(line, stream){
   stream.write(line +"\n");
+}
 
+function getFilesizeInBytes(filename) {
+    const stats = fs.statSync(filename)
+    const fileSizeInBytes = stats.size
+    return fileSizeInBytes
 }
 
 function ProcessFilesSynchonouslyCC(array, fn) {
@@ -365,11 +371,9 @@ function ProcessFilesSynchonouslyCC(array, fn) {
               index++;
           } else {
             if(results_write_stream){
-              results_write_stream.end();
               console.log("INFO: test results file located at - " + args['output-file']);
             }
             if(urls_write_stream){
-              urls_write_stream.end();
               console.log("INFO: save-all-urls file located at - " + args['save-all-urls']);
             }
             console.log("INFO: Paskto successfully finished.")
@@ -387,9 +391,7 @@ function ProcessFilesSynchonouslyIA(array, fn) {
     if(results_write_stream && args['ia-dir-input']){
       WriteToStream('"' + "TEST_ID" + '", "' + "TEST_NAME" + '", "'  + "TRIGGER_PATH" + '", "' + "URL" + '", "'+ "HOST_NAME" + '", "'+ "DOMAIN" + '", "'+ "PROTOCOL" + '", "'+ "PORT" + '", "'+ "STATUS" + '", "' + "FILENAME" + '", "' + "HASH" + '"', results_write_stream);
     }
-    if(urls_write_stream){
-      //WriteToStream('"' + "HTTP_CODE" + '", "' + "HASH" + '", "' + "DATE" + '", "'  + "URL"  + '"', ia_urls_write_stream);
-    }
+
     function next() {
       try{
         if (index < array.length) {
@@ -405,11 +407,9 @@ function ProcessFilesSynchonouslyIA(array, fn) {
             index++;
         } else {
           if(results_write_stream){
-            results_write_stream.end();
             console.log("INFO: test results file located at - " + args['output-file']);
           }
-          if(ia_urls_write_stream){
-            urls_write_stream.end();
+          if(urls_write_stream){
             console.log("INFO: save-all-urls file located at - " + args['save-all-urls']);
           }
           console.log("INFO: Paskto successfully finished.")
@@ -429,45 +429,54 @@ function ReadCompressedFileCC(filename){
           console.log(filename+ ": does not exist.");
           return resolve();
       }
-      var line_reader = readline.createInterface({
-        input: fs.createReadStream(filename).pipe(zlib.createGunzip())
-      });
-      line_reader.on('line', function (line) {
-        try{
-          if(line[0] == "{"){
-            var scan = JSON.parse(line);
-            if(scan){
-              PerformFastTests(scan.url, scan.status, scan.filename, scan.digest);
-            }
-            line_count++
-          } else {
-            var pos = line.indexOf(" {");
-            if(pos !== -1){
-              var trimmed = line.substring(pos, (line.length));
-              var scan = JSON.parse(trimmed);
+      if(getFilesizeInBytes(filename) === 0){
+        console.log(filename+ ": is empty.");
+        return resolve();
+      }
+      try {
+        var line_reader = readline.createInterface({
+          input: fs.createReadStream(filename).pipe(zlib.createGunzip())
+        });
+        line_reader.on('line', function (line) {
+          try{
+            if(line[0] == "{"){
+              var scan = JSON.parse(line);
               if(scan){
                 PerformFastTests(scan.url, scan.status, scan.filename, scan.digest);
               }
               line_count++
+            } else {
+              var pos = line.indexOf(" {");
+              if(pos !== -1){
+                var trimmed = line.substring(pos, (line.length));
+                var scan = JSON.parse(trimmed);
+                if(scan){
+                  PerformFastTests(scan.url, scan.status, scan.filename, scan.digest);
+                }
+                line_count++
+              }
             }
+          } catch(error){
+            console.error(line);
+            console.error(error);
+            resolve();
           }
-
-        } catch(error){
-          console.error(line);
-          console.error(error);
+        });
+        line_reader.on('close', function(){
+          console.error("File " + filename + " completed.");
+          console.error("Lines read: " + line_count);
           resolve();
-        }
-      });
-      line_reader.on('close', function(){
-        console.error("File " + filename + " completed.");
-        console.error("Lines read: " + line_count);
+        });
+        line_reader.on('error', function(error){
+          console.error("File " + filename + " error: " + error);
+          console.error("Lines read: " + line_count);
+          resolve();
+        });
+      } catch(error){
+        console.error(line);
+        console.error(error);
         resolve();
-      });
-      line_reader.on('error', function(error){
-        console.error("File " + filename + " error: " + error);
-        console.error("Lines read: " + line_count);
-        resolve();
-      });
+      }
     })
 
   } catch(error){
@@ -484,31 +493,41 @@ function ReadCompressedFileIA(filename){
           console.log(filename+ ": does not exist.");
           return resolve();
       }
-      var line_reader = readline.createInterface({
-        input: fs.createReadStream(filename).pipe(zlib.createGunzip())
-      });
-      line_reader.on('line', function (line) {
-        try{
-          var scan = line.split(" ");
-          if(scan.length > 5){
-            PerformFastTests(scan[2], scan[4], scan[1], scan[5]);
+      if(getFilesizeInBytes(filename) === 0){
+        console.log(filename+ ": is empty.");
+        return resolve();
+      }
+      try {
+        var line_reader = readline.createInterface({
+          input: fs.createReadStream(filename).pipe(zlib.createGunzip())
+        });
+        line_reader.on('line', function (line) {
+          try{
+            var scan = line.split(" ");
+            if(scan.length > 5){
+              PerformFastTests(scan[2], scan[4], scan[1], scan[5]);
+            }
+            line_count++
+          } catch(error){
+            console.error(line);
+            console.error(error);
           }
-          line_count++
-        } catch(error){
-          console.error(line);
-          console.error(error);
-        }
-      });
-      line_reader.on('close', function(){
-        console.error("File " + filename + " completed.");
-        console.error("Lines read: " + line_count);
+        });
+        line_reader.on('close', function(){
+          console.error("File " + filename + " completed.");
+          console.error("Lines read: " + line_count);
+          resolve();
+        });
+        line_reader.on('error', function(error){
+          console.error("File " + filename + " error: " + error);
+          console.error("Lines read: " + line_count);
+          resolve();
+        });
+      } catch(error){
+        console.error(line);
+        console.error(error);
         resolve();
-      });
-      line_reader.on('error', function(error){
-        console.error("File " + filename + " error: " + error);
-        console.error("Lines read: " + line_count);
-        resolve();
-      });
+      }
     })
 
   } catch(error){
@@ -551,9 +570,8 @@ function BuildPaskoDB(){
             nikto_db_tests[items[0]]["urls"] = urls;
           }
         } catch (error){
-          //console.log(error);
+          console.log("Error parsing: " + JSON.stringify(error));
         }
-
       }
     }
     fs.writeFile(__dirname + "/paskto_db.json", JSON.stringify(nikto_db_tests,null,2), function (err) {
@@ -561,7 +579,6 @@ function BuildPaskoDB(){
             return console.log(err);
         console.log('INFO: Paskto database successfully updated.');
     });
-    //console.log("nikto_db_tests: " + JSON.stringify(nikto_db_tests,null,2));
   });
 }
 
@@ -660,7 +677,6 @@ function GetNiktoDBs(){
   });
 }
 
-//
 function ExtractHostname(url) {
     var hostname;
     var protocol;
@@ -739,9 +755,6 @@ function PerformFastTests(url, status, filename, hash){
   if(urls_write_stream){
     WriteToStream('"' + status + '", "' + hash + '", "' + filename + '", "'  + url + '"', urls_write_stream);
   }
-  //if(ia_urls_write_stream){
-    //WriteToStream('"' + status + '", "' + hash + '", "' + filename + '", "'  + url + '"', ia_urls_write_stream);
-  //}
   if(!results_write_stream) return true;
   for(var i_len=(bits.length-1); i_len > 0; i_len--){
     if(i_len == bits.length){
@@ -783,9 +796,7 @@ function PerformFastTests(url, status, filename, hash){
   var tests_length = positive_tests.length;
   if(tests_length){
     for(var i=0, i_len=tests_length; i< i_len; i++){
-      //WriteToStream('"NIKTO-' + positive_tests[i] + '", "' + db[positive_tests[i]].orig[10]  + '", "' + nikto_match_path + '", "' + url + '", "' + hostname + '", "' + domain + '", "' + domain_bits.protocol + '", "' + domain_bits.port + '", "' + status + '", "' +filename + '", "' + hash + '"', results_write_stream);
       WriteToStream('"NIKTO-' + positive_tests[i] + '", "' + db[positive_tests[i]].orig[10]  + '", "' + nikto_match_path + '", "' + url + '", "' + hostname + '", "' + domain + '", "' + domain_bits.protocol + '", "' + domain_bits.port + '", "' + status + '", "' +filename + '", "' + hash + '"', results_write_stream);
-
     }
   }
 
@@ -793,9 +804,7 @@ function PerformFastTests(url, status, filename, hash){
     tests_length = extra_positive_tests.length;
     if(tests_length){
       for(var i=0, i_len=tests_length; i< i_len; i++){
-        //WriteToStream('"EXTRAS-' + extra_positive_tests[i] + '", "' + 'EXTRAS-' + extra_positive_tests[i]+"-"+ match_path  + '", "' + match_path + '", "' + url + '", "' + hostname + '", "' + domain + '", "' + domain_bits.protocol + '", "' + domain_bits.port + '", "' + status + '", "' +filename + '", "' + hash + '"', results_write_stream);
         WriteToStream('"EXTRAS-' + extra_positive_tests[i] + '", "' + 'EXTRAS-' + extra_positive_tests[i]+"-"+ match_path  + '", "' + match_path + '", "' + url + '", "' + hostname + '", "' + domain + '", "' + domain_bits.protocol + '", "' + domain_bits.port + '", "' + status + '", "' +filename + '", "' + hash + '"', results_write_stream);
-
       }
     }
   }

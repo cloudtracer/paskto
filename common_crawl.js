@@ -23,18 +23,12 @@
         var compress = zlib.createGzip();
         if (!fs.existsSync(dir)){
           fs.mkdirSync(dir);
-        } else {
-          //console.log("Directory already exist");
         }
         var output = fs.createWriteStream(dir + filename);
-        /* The following line will pipe everything written into compress to the file stream */
         compress.pipe(output);
-        /* Since we're piped through the file stream, the following line will do:
-           'Hello World!'->gzip compression->file which is the desired effect */
         compress.write(data);
         compress.end();
         compress.on('end', function(){
-          //console.log("resolved")
           resolve(dir+filename);
         }.bind(this));
 
@@ -47,18 +41,19 @@
         var filename = options.queryString + "--" + page + ".gz";
         var dir = base_path +"/"+ "cc_files/" + options.currentIndex + "/";
         if (fs.existsSync(dir+filename)) {
-          //console.log("file exists - resolved.");
+          console.log("Common Crawl Index file already exists, URL: " + createdUrl + ", file: " + dir+filename);
           return resolve(dir+filename);
         }
+        var createdUrl = QueryURL + options.currentIndex+ '?url='+options.queryString +'%2F*&output=json&page='+page;
+        console.log("Downloading Common Crawl Index file, URL: " + createdUrl);
         get({
-          url: QueryURL + options.currentIndex+ '?url='+options.queryString +'%2F*&output=json&page='+page,
+          url: createdUrl,
           method: 'GET',
         }, function (err, res) {
           var results = "";
           if (err) throw err
           res.setTimeout(1200000);
           res.on('data', function (chunk) {
-            //console.log('Line: ' + chunk);
             results+= chunk;
           })
           res.on('end', function(){
@@ -67,16 +62,13 @@
             });
           });
         });
-
       });
     }
 
     var PagesByURL = function(options){
-      //console.log(QueryURL + " " + options.currentIndex);
       var createdUrl = QueryURL + options.currentIndex+ '?url='+options.queryString +'%2F*&output=json&showNumPages=true';
       try{
         var promise = new Promise((resolve, reject) => {
-          //console.log("url: " + createdUrl)
           get({
             url: createdUrl,
             method: 'GET',
@@ -85,7 +77,6 @@
             if (err) throw err
             res.setTimeout(120000);
             res.on('data', function (chunk) {
-              //console.log('Line: ' + chunk)
               results+= chunk;
             })
             res.on('end', function(){
@@ -99,7 +90,6 @@
         console.error(JSON.stringify(error));
         resolve(error);
       }
-
     }
     CommonCrawl['PagesByURL'] = PagesByURL;
     CommonCrawl['FindByURL'] = FindByURL;
