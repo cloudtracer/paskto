@@ -13,7 +13,6 @@
     const fs = require('fs');
     const zlib = require('zlib');
     const base_path = __dirname;
-    //view-source:https://InternetArchive.s3.amazonaws.com/cc-index/collections/index.html
     var InternetArchive = {};
     var QueryURL = "http://web.archive.org/cdx/search/cdx";
     var date = new Date().getFullYear();
@@ -57,6 +56,7 @@
             resolve(err);
           }
           if(res){
+            res.setTimeout(120000);
             res.on('data', function (chunk) {
               results+= chunk;
             })

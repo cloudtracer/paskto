@@ -1,4 +1,5 @@
 {
+  "/general/status.html" : "PASKTO: Usually printer.",
   "XcCDONTS.asp" : "EXPLOITDB: This query reveals an .asp script which can often be used to send anonymous emails from fake senders. When combined with a proxy, the usefulness of these scr...",
   "CgiStart?page=" : "EXPLOITDB: This search reveals even more Panasonic IP cameras!",
   "pass.dat" : "EXPLOITDB: Accesses passwords mostly in cgibin but not all the timeCan find passwords + usernames (sometimes username), some unecrypted some not",
